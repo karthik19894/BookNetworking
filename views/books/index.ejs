@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<div class="container">
+<header class="jumbotron">
+    <div class="container">
+    <h1>Welcome to Book Networking!</h1>
+    <p>Your Place to Be! If you are a Book Worm :P</p>
+    <p><a class="btn btn-primary btn-lg" href="books/new">Add a New Book</a></p>
+    </div>
+</header>
+
+
+<div class="row text-center" style="display:flex; flex-wrap:wrap;">
+<% books.forEach(function(book){ %>
+<div class="col-md-3 col-md-6"> 
+<div class="thumbnail">
+    <img id="ind-image" src="<%=book.image %>" >
+    <div class="caption">
+    <h4><%= book.title %> </h4>
+</div>
+<p><a class="btn btn-primary" style="margin-top:5px;" href="/books/<%=book._id%>">More Info</a></p>
+</div>
+</div>    
+<% }) %>
+
+</div>
+<% include ../partials/footer %>

@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Book Networking</p>
+        </div>
+    <div class="col-md-9">
+        <div class="thumbnail">
+            <img class="img-responsive" src="<%=book.image%>">
+            <div class="caption-full">
+                <h4><a><%=book.title%></a> </h4>
+                <p><%= book.description %></p>
+                <p><em>Written By <%=book.author %></em></p>
+
+            </div>
+        </div>
+    <div class="well">
+        <div class="text-right">
+                <a class="btn btn-success" href="/books/<%= book._id %>/catalogue/new">Add to My Catalogue</a>
+        </div>
+        <hr>
+            </div>
+        </div>
+    </div>
+ 
+<% include ../partials/footer %>
