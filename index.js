@@ -6,6 +6,11 @@ flash=require('connect-flash'),
 passport=require('passport'),
 methodOverride=require('method-override');
 
+//Connecting to the MLAB MongoDB
+mongoose.connect("mongodb://karthik:karthik123@ds151970.mlab.com:51970/book_networking",function(){
+    console.log("Connected to Database");
+});
+
 //Getting the routes
 const indexRoutes=require('./routes/index_routes');
 const bookRoutes=require('./routes/books.js');
