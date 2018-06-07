@@ -1,7 +1,4 @@
-.thumbnail img
-{
-    width:100%;
-}
+
 
 
 .thumbnail
@@ -28,4 +25,14 @@
 {
     height:400px;
     width:100%;
+}
+
+.author{
+    text-transform:capitalize;
+    font-weight:bold;
+}
+
+.book-thumbnail{
+    width:100%;
+    height:auto;
 }

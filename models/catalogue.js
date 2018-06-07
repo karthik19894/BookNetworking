@@ -4,10 +4,14 @@ const mongoose=require('mongoose');
 const catalogueSchema=new mongoose.Schema({
     catalogue_title:String,
     owner:{
-        user:{
-            id:mongoose.Schema.Types.ObjectId,
+        id:{
+            type:mongoose.Schema.Types.ObjectId,
             ref:"User"},
         name:String
+    },
+    book_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Book"
     }
     }
 );

@@ -1,20 +1,16 @@
 <% include ../partials/header %>
-    <div class="row">
-        <div class="col-md-3">
-            <p class="lead">Book Networking</p>
-        </div>
-    <div class="col-md-9">
-        <div class="thumbnail">
+            <p class="lead"><%=book.title%></p>
+            <div class="thumbnail display-book">
             <img class="img-responsive" src="<%=book.image%>">
             <div class="caption-full">
                 <h4><a><%=book.title%></a> </h4>
                 <p><%= book.description %></p>
-                <p><em>Written By <%=book.author %></em></p>
+                <p><em>Written By <span class="author"> <%=book.author %></em></span></p>
 
             </div>
         </div>
     <div class="well">
-        <div class="text-right">
+        <div class="text-left">
                 <a class="btn btn-success" href="/books/<%= book._id %>/catalogue/new">Add to My Catalogue</a>
         </div>
         <hr>
