@@ -2,6 +2,8 @@ var express=require('express'),
 router=express.Router(),
 Book=require('../models/book');
 
+
+
  
 //Route for displaying All the available Books
 router.get('/',function(req,res){
@@ -9,13 +11,43 @@ router.get('/',function(req,res){
     if(err){
         console.log("error",err.message);
     }
-    else
-    {
+    else{
         res.render('books/index',{books:books});
     }
+    });
+
+    var noMatch = null;
+   if(req.query.search) {
+       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        // Get all books from DB
+        Book.find({title: regex}, function(err, allBooks){
+           if(err){
+               console.log(err);
+           } else {
+              if(allBooks.length < 1) {
+                  noMatch = "No books match that query, please try again.";
+              }
+              res.render("books/index",{books:allBooks, noMatch: noMatch});
+           }
+        });
+    } 
+    else {
+        // Get all books from DB
+        Book.find({}, function(err, allBooks){
+           if(err){
+               console.log(err);
+           } else {
+              res.render("books/index",{books:allBooks, noMatch: noMatch});
+           }
+     
+    })
+    }
     
-})
 });
+
+
+
+
 
 //Route For Displaying the Add New Book to the Global Catalogue Form
 router.get('/new',(req,res)=>{
@@ -51,7 +83,9 @@ router.post('/',(req,res)=>{
 
 });
 
-
+function escapeRegex(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router;

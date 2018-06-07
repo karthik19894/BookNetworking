@@ -23,7 +23,15 @@
     
     <div id="landing-header">
  		<h1>Welcome to Book Networking</h1>
-		<a href="/books" class="btn btn-lg btn-success">View All the Books</a>
+        <a href="/books" class="btn btn-lg btn-success">View All the Books</a>
+        <p>
+        <form action="/books" method="GET" class="form-inline">
+            <div class="form-group">
+                <input type="text" name="search" placeholder="Search For a Book..." class="form-control">
+                <input type="submit" value="Search" class="btn btn-default">
+            </div>
+        </form>
+        </p>
     </div>
     
     <ul class="slideshow">

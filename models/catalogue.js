@@ -9,10 +9,10 @@ const catalogueSchema=new mongoose.Schema({
             ref:"User"},
         name:String
     },
-    book_id:{
+    books:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Book"
-    }
+    }]
     }
 );
 
