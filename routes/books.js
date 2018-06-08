@@ -7,16 +7,6 @@ Book=require('../models/book');
  
 //Route for displaying All the available Books
 router.get('/',function(req,res){
-    Book.find({},function(err,books){
-    if(err){
-        console.log("error",err.message);
-    }
-    else{
-        res.render('books/index',{books:books});
-    }
-    });
-
-    var noMatch = null;
    if(req.query.search) {
        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         // Get all books from DB
@@ -24,10 +14,7 @@ router.get('/',function(req,res){
            if(err){
                console.log(err);
            } else {
-              if(allBooks.length < 1) {
-                  noMatch = "No books match that query, please try again.";
-              }
-              res.render("books/index",{books:allBooks, noMatch: noMatch});
+              res.render("books/index",{books:allBooks});
            }
         });
     } 
@@ -37,7 +24,7 @@ router.get('/',function(req,res){
            if(err){
                console.log(err);
            } else {
-              res.render("books/index",{books:allBooks, noMatch: noMatch});
+              res.render("books/index",{books:allBooks});
            }
      
     })

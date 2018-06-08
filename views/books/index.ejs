@@ -1,40 +1,42 @@
 <% include ../partials/header %>
 
 <div class="container">
-<header class="jumbotron">
-    <div class="container">
-    <h1>Welcome to Book Networking!</h1>
-    <p>Your Place to Be! If you are a Book Worm :P</p>
-    <p><a class="btn btn-primary btn-lg" href="books/new">Add a New Book</a></p>
-    </div>
-</header>
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome to Book Networking!</h1>
+            <p>Your Place to Be! If you are a Book Worm :P</p>
+            <p><a class="btn btn-primary btn-lg" href="books/new">Add a New Book</a></p>
+        </div>
+    </header>
 
 
-<div class="row text-center" style="display:flex; flex-wrap:wrap;">
-    <div class="col-md-12">
-         <% if(noMatch !== null) { %>
-         <h3><%= noMatch %></h3>
-         <p>
-            <form action="/books" method="GET" class="form-inline">
-            	<div class="form-group">
-            		<input type="text" name="search" placeholder="Search Book.." class="form-control">
-            		<input type="submit" value="Search" class="btn btn-default">
-            	</div>
-            </form>
-        </p>
-         <% } %>
-    </div>
-<% books.forEach(function(book){ %>
-<div class="col-md-3 col-md-6"> 
-<div class="thumbnail book-thumbnail">
-    <img id="ind-image" src="<%=book.image %>" >
-    <div class="caption">
-    <h4><%= book.title %> </h4>
-</div>
-<p><a class="btn btn-primary" style="margin-top:5px;" href="/books/<%=book._id%>">More Info</a></p>
-</div>
-</div>    
-<% }) %>
+    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+        <div class="col-md-12">
+            <p>
+                <form action="/books" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="search" placeholder="Search Book.." class="form-control">
+                        <input type="submit" value="Search" class="btn btn-default">
+                    </div>
+                </form>
+            </p>
+        </div>
+        <% if(books.length<1) { %>
+            <h2>Sorry No Matches Found, Please Search Again!</h2>
+        <% }  else {  %>
+
+                <% books.forEach(function(book){ %>
+                    <div class="col-md-3 col-md-6"> 
+                        <div class="thumbnail book-thumbnail">
+                            <img id="ind-image" src="<%=book.image %>" >
+                            <div class="caption">
+                                <h4><%= book.title %> </h4>
+                            </div>
+                            <p><a class="btn btn-primary" style="margin-top:5px;" href="/books/<%=book._id%>">More Info</a></p>
+                        </div>
+                    </div>    
+            <% }) %> 
+            <% } %>
 
 </div>
 <% include ../partials/footer %>
