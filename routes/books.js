@@ -2,21 +2,33 @@ var express=require('express'),
 router=express.Router(),
 Book=require('../models/book');
 
-
-
- 
 //Route for displaying All the available Books
 router.get('/',function(req,res){
    if(req.query.search) {
        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        // Get all books from DB
-        Book.find({title: regex}, function(err, allBooks){
-           if(err){
-               console.log(err);
-           } else {
-              res.render("books/index",{books:allBooks});
-           }
-        });
+        // Get the books based on the search 
+        //Check for the search type-- if user has chosen name or isbn
+        if(req.query.searchType==='Name'){
+            Book.find({title: regex}, function(err, allBooks){
+                if(err){
+                    console.log(err);
+                } else {
+                   res.render("books/index",{books:allBooks});
+                }
+             });
+
+        }
+        else {
+            Book.find({isbn: regex}, function(err, allBooks){
+                if(err){
+                    console.log(err);
+                } else {
+                   res.render("books/index",{books:allBooks});
+                }
+             });
+
+        }
+       
     } 
     else {
         // Get all books from DB
@@ -69,6 +81,7 @@ router.post('/',(req,res)=>{
 
 
 });
+
 
 function escapeRegex(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
