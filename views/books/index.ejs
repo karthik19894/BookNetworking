@@ -3,7 +3,7 @@
 <div class="container">
     <header class="jumbotron">
         <div class="container">
-            <h1>Welcome to Book Networking!</h1>
+            <h1>Welcome to Book Networking <i class="fa fa-book" style="font-size:56px"></i></h1>
             <p>Your Place to Be! If you are a Book Worm :P</p>
             <p><a class="btn btn-primary btn-lg" href="books/new">Add a New Book</a></p>
         </div>
@@ -26,7 +26,9 @@
             </p>
         </div>
         <% if(books.length<1) { %>
-            <h2>Sorry No Matches Found, Please Search Again!</h2>
+        <div class="container">
+            <h2 style="text-align:center;">Sorry No Matches Found, Please Search Again!</h2>
+        </div>
         <% }  else {  %>
 
                 <% books.forEach(function(book){ %>
