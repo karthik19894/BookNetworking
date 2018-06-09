@@ -4,6 +4,9 @@ router=express.Router();
 const User=require('../models/user'),
 passport=require('passport');
 
+var passportFacebook = require('../auth/facebook');
+
+var passportGoogle = require('../auth/google');
 
 
 router.get('/',(req,res)=>{
@@ -33,6 +36,44 @@ router.post('/register',function(req,res){
     });
 });
 });
+
+//Facebook AUTH Routes
+router.get('/auth/facebook',
+  passportFacebook.authenticate('facebook',{scope:["email"]}))  ;
+
+router.get('/auth/facebook/callback',
+  passportFacebook.authenticate('facebook',function(err,user){
+    if(err){
+        res.send(err);
+    }
+    req.logIn(user, function (err) {
+        if (err) {
+          console.log(err);
+          res.send(err);
+        } else {
+          res.redirect("/");
+        }
+      });
+    }
+)
+  
+);
+
+//Google Routes
+router.get('/auth/google',
+  passportGoogle.authenticate('google', { scope: 'https://www.google.com/m8/feeds' }));
+
+router.get('/auth/google/callback',
+  passportGoogle.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+
+
+
+
+
 //show login form
 
 router.get('/login',function(req,res){

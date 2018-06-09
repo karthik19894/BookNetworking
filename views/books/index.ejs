@@ -4,8 +4,13 @@
     <header class="jumbotron">
         <div class="container">
             <h1>Welcome to Book Networking <i class="fa fa-book" style="font-size:56px"></i></h1>
-            <p>Your Place to Be! If you are a Book Worm :P</p>
-            <p><a class="btn btn-primary btn-lg" href="books/new">Add a New Book</a></p>
+            <h2>Your Place to Be! If you are a Book Worm :P</h2>
+            <% if(currentUser) { %>
+            <p><a class="btn btn-primary btn-lg" href="/books/new">Add a New Book</a></p>
+            <p><a class="btn btn-primary btn-lg" href="/books/<%=currentUser._id%>/catalogue">View My Catalogue</a></p>
+            <% } else { %>
+            <a href='/login'><h3>Login For More Options</h3></a>
+            <% } %>
         </div>
     </header>
 

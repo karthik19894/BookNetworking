@@ -8,12 +8,12 @@ LocalStrategy=require('passport-local'),
 User=require('./models/user'),
 methodOverride=require('method-override');
 
+
 //Connecting to the MLAB MongoDB
 mongoose.connect("mongodb://karthik:karthik123@ds151970.mlab.com:51970/book_networking",function(){
     console.log("Connected to Database");
 });
 
-require('./models/config/passport')(passport);
 
 //Getting the routes
 const indexRoutes=require('./routes/index_routes');
@@ -47,6 +47,7 @@ app.use(function(req,res,next){
 //Using the routes
 app.use('/',indexRoutes);
 app.use('/books',bookRoutes);
+
 
 
 //Listening for the App Server

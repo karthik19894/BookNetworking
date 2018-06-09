@@ -1,6 +1,10 @@
 var express=require('express'),
 router=express.Router(),
+middleware=require('../middleware'),
+User=require('../models/user'),
 Book=require('../models/book');
+
+
 
 //Route for displaying All the available Books
 router.get('/',function(req,res){
@@ -49,7 +53,7 @@ router.get('/',function(req,res){
 
 
 //Route For Displaying the Add New Book to the Global Catalogue Form
-router.get('/new',(req,res)=>{
+router.get('/new',middleware.isLoggedIn,(req,res)=>{
     res.render('books/newbook');
 });
 
@@ -65,7 +69,7 @@ router.get('/:id',(req,res)=>{
 
 
 //POST Route for pusing new book to the database
-router.post('/',(req,res)=>{
+router.post('/',middleware.isLoggedIn,(req,res)=>{
     //Getting the book details from the form through body parser
     const new_book=req.body.book;
 
@@ -81,6 +85,50 @@ router.post('/',(req,res)=>{
 
 
 });
+
+//Route for adding books to the user's catalog
+router.get('/add/:book_id',middleware.isLoggedIn,function(req,res){
+    console.log('hit the route for adding to catalogue');
+    console.log(req.user);
+    console.log(req.user._id);
+    const currentUser=req.user;
+    book_id=req.params.book_id;
+    User.findById(currentUser._id,function(err,foundUser){
+        if(err){
+            console.log(err);
+        }
+        else{
+            Book.findById(book_id,(err,foundBook)=>{
+                foundUser.catalogue.push(foundBook);
+                foundUser.save();
+                console.log("Added to the User's Catalogue");
+            })
+            return res.redirect('/books/'+currentUser._id+'/catalogue');
+        }
+    })
+
+
+
+
+});
+
+//Route For Viewing an User's Catalogue
+
+router.get('/:user_id/catalogue',middleware.isLoggedIn ,function (req, res) {
+      User.findById(req.params.user_id)
+      .then(
+        (foundUser) =>
+          Promise.all(
+            foundUser.catalogue.map(
+              book_id=>Book.findById(book_id)
+            )
+          )
+      ).then(
+        userBooks=>res.render('catalogue/catalogue_books', { books: userBooks })
+      );
+    }
+  );
+
 
 
 function escapeRegex(text) {

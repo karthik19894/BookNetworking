@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+
+<% books.forEach(function(book){ %>
+                <div class="col-md-3 col-md-6"> 
+                    <div class="thumbnail book-thumbnail">
+                        <img id="ind-image" src="<%=book.image %>" >
+                        <div class="caption">
+                            <h4><%= book.title %> </h4>
+                        </div>
+                        <p><a class="btn btn-primary" style="margin-top:5px;" href="/books/<%=book._id%>">More Info</a></p>
+                        </div>
+                    </div>    
+            <% }) %> 
+
+<% include ../partials/footer %>
