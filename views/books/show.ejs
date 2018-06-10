@@ -6,6 +6,9 @@
                 <h4><a><%=book.title%></a> </h4>
                 <p><%= book.description %></p>
                 <p><em>Written By <span class="author"> <%=book.author %></em></span></p>
+                <% if(!currentUser) { %>
+                    <a href="/login"><p>Login For More!</p></a>
+                <% } %> 
 
             </div>
         </div>
@@ -14,7 +17,7 @@
         <div class="text-left">
                 <a class="btn btn-success" href="/books/<%= book._id %>/add">Add to My Catalogue</a>
                 <%if(currentUser._id.equals(book.created_user._id)){ %>
-                <a class="btn btn-danger" href="/books/<%= book._id %>/edit">Edit Book</a>
+                <a class="btn btn-warning" href="/books/<%= book._id %>/edit">Edit Book</a>
                 <form class="delete-form" action="/books/<%=book._id%>/delete?_method=DELETE" method="POST">
                         <input class='btn btn-danger' type="submit" value="Delete Book"</input>
                 </form>
