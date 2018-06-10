@@ -12,7 +12,14 @@
     <% if(currentUser) { %>
     <div class="well">
         <div class="text-left">
-                <a class="btn btn-success" href="/books/add/<%= book._id %>">Add to My Catalogue</a>
+                <a class="btn btn-success" href="/books/<%= book._id %>/add">Add to My Catalogue</a>
+                <%if(currentUser._id.equals(book.created_user._id)){ %>
+                <a class="btn btn-danger" href="/books/<%= book._id %>/edit">Edit Book</a>
+                <form class="delete-form" action="/books/<%=book._id%>/delete?_method=DELETE" method="POST">
+                        <input class='btn btn-danger' type="submit" value="Delete Book"</input>
+                </form>
+                
+                <% } %>
         </div>
         <hr>
             </div>

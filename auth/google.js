@@ -5,7 +5,7 @@ var User = require('../models/user');
 passport.use(new GoogleStrategy({
     clientID: "952021953094-0r931qboagbjn651onik34gbked2i52r.apps.googleusercontent.com",
     clientSecret: "ooOKT-ajvvMjbIflhOkdwROj",
-    callbackURL: "https://localhost:8088/auth/google/callback"
+    callbackURL: "http://localhost:8088/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
        User.findOrCreate({ email: profile.email }, { username: profile.displayName,email:profile.email }, function (err, user) {

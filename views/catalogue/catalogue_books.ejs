@@ -1,15 +1,30 @@
 <% include ../partials/header %>
 
-<% books.forEach(function(book){ %>
+
+<% if((books!==null)&&(books.length>0)) { %>
+    <% books.forEach(function(book){ %>
+                <% if(book) { %>
                 <div class="col-md-3 col-md-6"> 
                     <div class="thumbnail book-thumbnail">
-                        <img id="ind-image" src="<%=book.image %>" >
-                        <div class="caption">
-                            <h4><%= book.title %> </h4>
-                        </div>
-                        <p><a class="btn btn-primary" style="margin-top:5px;" href="/books/<%=book._id%>">More Info</a></p>
-                        </div>
-                    </div>    
+                    <img id="ind-image" src="<%=book.image %>" >
+                    <div class="caption">
+                        <h4><%= book.title %> </h4>
+                    </div>
+                    </div>
+                </div>    
+                <% } else { %>
+                <div class="thumbnail book-thumbnail">
+                <img alt="Deleted">
+                <div class="caption">
+                    <h4>This Book has been Deleted </h4>
+                </div>
+                </div>
+                <% } %>
             <% }) %> 
+<% } else { %>
+                <div class="container">
+                    <a href="/books"><h3>No Books Found in the Catalogue, Click Here to Go Home</h3></a>
+                </div>
+    <% } %>
 
 <% include ../partials/footer %>

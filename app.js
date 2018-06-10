@@ -10,7 +10,7 @@ methodOverride=require('method-override');
 
 
 //Connecting to the MLAB MongoDB
-mongoose.connect("mongodb://karthik:karthik123@ds151970.mlab.com:51970/book_networking",function(){
+mongoose.connect(process.env.BK_DB_URL,function(){
     console.log("Connected to Database");
 });
 
