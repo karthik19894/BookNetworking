@@ -1,5 +1,8 @@
 <% include ../partials/header %>
 
+<% if(currentUser) { %>
+<h2 style="text-transform:capitalize;"> <%=currentUser.username %>'s Catalogue</h2>
+<% } %>
 
 <% if((books!==null)&&(books.length>0)) { %>
     <% books.forEach(function(book){ %>

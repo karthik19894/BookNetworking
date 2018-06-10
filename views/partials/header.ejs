@@ -23,14 +23,14 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="<%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>"><a href="/books">Home</a></li>
+            <li class="<%= typeof page !== 'undefined' && page === 'books' ? 'active' : '' %>"><a href="/books">Home</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
               <% if(!currentUser){ %>
                   <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
                   <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
               <% } else { %>
-                  <li><a href="#">Signed In As <%= currentUser.username %></a></li>
+                  <li><a href="#" style="text-transform:capitalize;">Signed In As <%= currentUser.username %></a></li>
                   <li><a href="/logout">Logout</a></li>
               <% } %>
           </ul>

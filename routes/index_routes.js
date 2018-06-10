@@ -51,7 +51,7 @@ router.get('/auth/facebook/callback',
           console.log(err);
           res.send(err);
         } else {
-          res.redirect("/");
+          res.redirect("/books");
         }
       });
     }
@@ -68,6 +68,7 @@ router.get('/auth/google/callback',
   function(req, res) {
     res.redirect('/');
   });
+
 
 
 
