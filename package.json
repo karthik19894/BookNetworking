@@ -4,6 +4,7 @@
   "description": "KRDS_Digital_Assignment",
   "main": "index.js",
   "scripts": {
+    "start":"node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Karthik Ruthiravelu",
