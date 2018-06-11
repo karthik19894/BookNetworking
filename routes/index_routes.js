@@ -38,33 +38,24 @@ router.post('/register',function(req,res){
 });
 
 //Facebook AUTH Routes
-router.get('/auth/facebook',
-  passportFacebook.authenticate('facebook',{scope:["email"]}))  ;
+router.get('/auth/facebook', passportFacebook.authenticate('facebook', { 
+    scope : ['public_profile', 'email']
+  }));
 
-router.get('/auth/facebook/callback',
-  passportFacebook.authenticate('facebook',function(err,user){
-    if(err){
-        res.send(err);
-    }
-    req.logIn(user, function (err) {
-        if (err) {
-          console.log(err);
-          res.send(err);
-        } else {
-          res.redirect("/books");
-        }
-      });
-    }
-)
-  
-);
+  // handle the callback after facebook has authenticated the user
+  router.get('/auth/facebook/callback',
+      passport.authenticate('facebook', {
+          successRedirect : '/books',
+          failureRedirect : '/'
+      }));
 
-//Google Routes
-router.get('/auth/google',
-  passportGoogle.authenticate('google', { scope: 'https://www.google.com/m8/feeds' }));
+
+//Google Auth Routes
+router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
 
 router.get('/auth/google/callback',
-  passportGoogle.authenticate('google', { failureRedirect: '/login' }),
+  passportGoogle.authenticate('google', { successRedirect:'/books',failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });

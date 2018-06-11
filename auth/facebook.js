@@ -6,14 +6,47 @@ passport.use(new FacebookStrategy({
     clientID: process.env.FBCLIENTID,
     clientSecret: process.env.FBCLIENTSECRET,
     callbackURL: "http://localhost:"+process.env.PORT+"/auth/facebook/callback"
+
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({username: profile.displayName}, {username: profile.displayName}, function(err, user) {
-        console.log(profile);
-      if (err) { return done(err); }
-      done(null, user);
+  function(token, refreshToken, profile, done) {
+
+    // asynchronous
+    process.nextTick(function() {
+
+        // find the user in the database based on their facebook id
+        User.findOne({ email : profile.email }, function(err, user) {
+
+            // if there is an error, stop everything and return that
+            // ie an error connecting to the database
+            if (err)
+                return done(err);
+
+            // if the user is found, then log them in
+            if (user) {
+                return done(null, user); // user found, return that user
+            } else {
+                // if there is no user found with that facebook id, create them
+                var newUser            = new User();
+
+                // set all of the facebook information in our user model
+                newUser.id    = profile.id; // set the users facebook id                                       
+                newUser.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
+                newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+
+                // save our user to the database
+                newUser.save(function(err) {
+                    if (err)
+                        throw err;
+
+                    // if successful, return the new user
+                    return done(null, newUser);
+                });
+            }
+
+        });
     });
-  }
-));
+
+}));
+
 
 module.exports = passport;
