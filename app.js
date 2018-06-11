@@ -52,5 +52,6 @@ app.use('/books',bookRoutes);
 
 //Listening for the App Server
 app.listen(process.env.PORT,process.env.IP,function(){
+    console.log(process.env.IP);
     console.log("Book Networking Application has Started :) ");
 });
