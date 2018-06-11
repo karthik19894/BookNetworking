@@ -5,7 +5,7 @@ var User = require('../models/user');
 passport.use(new FacebookStrategy({
     clientID: process.env.FBCLIENTID,
     clientSecret: process.env.FBCLIENTSECRET,
-    callbackURL: "http://"+process.env.IP+":"+process.env.PORT+"/auth/facebook/callback"
+    callbackURL: "https://"+process.env.IP+":"+process.env.PORT+"/auth/facebook/callback"
     // callbackURL: process.env.FBCALLBACKURL
 
   },
