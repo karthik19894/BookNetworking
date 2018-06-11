@@ -5,8 +5,7 @@ var User = require('../models/user');
 passport.use(new FacebookStrategy({
     clientID: process.env.FBCLIENTID,
     clientSecret: process.env.FBCLIENTSECRET,
-    callbackURL: "https://booknetworking.herokuapp.com/auth/facebook/callback"
-    // callbackURL: process.env.FBCALLBACKURL
+    callbackURL: process.env.FBCALLBACKURL
 
   },
   function(token, refreshToken, profile, done) {
